@@ -1,0 +1,102 @@
+
+Yassin Madani <mr.yassinmadani@gmail.com>
+19:55 (vor 0 Minuten)
+an mich
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Hacker Clicker</title>
+<style>
+body {
+background-color: #000;
+color: #00ff00;
+font-family: monospace;
+text-align: center;
+padding: 40px;
+}
+button {
+background-color: #111;
+color: #00ff00;
+border: 2px solid #00ff00;
+padding: 20px 40px;
+font-size: 20px;
+cursor: pointer;
+margin-top: 20px;
+}
+.stats {
+margin: 20px 0;
+}
+.upgrade {
+margin-top: 30px;
+border-top: 1px solid #00ff00;
+padding-top: 20px;
+}
+</style>
+</head>
+<body>
+<h1>HACKER CLICKER</h1>
+<div class="stats">
+<p>Level: <span id="level">1</span></p>
+<p>XP: <span id="xp">0</span> / <span id="xpNext">100</span></p>
+<p>Bits: <span id="bits">0</span></p>
+</div>
+<button onclick="writeCode()">Code schreiben</button>
+
+<div class="upgrade">
+<h3>Upgrades</h3>
+<button onclick="buyAutoClicker()">Auto-Scripter (Kosten: 50 Bits)</button>
+<p id="autoClickerInfo">Auto-Scripter: <span id="autoClickers">0</span></p>
+</div>
+
+<script>
+let xp = 0;
+let bits = 0;
+let level = 1;
+let autoClickers = 0;
+let xpToNext = 100;
+
+function updateUI() {
+document.getElementById("xp").innerText = xp;
+document.getElementById("bits").innerText = bits;
+document.getElementById("level").innerText = level;
+document.getElementById("autoClickers").innerText = autoClickers;
+document.getElementById("xpNext").innerText = xpToNext;
+}
+
+function writeCode() {
+xp += 1;
+bits += 1;
+checkLevelUp();
+updateUI();
+}
+
+function checkLevelUp() {
+if (xp >= xpToNext) {
+xp -= xpToNext;
+level++;
+xpToNext = Math.floor(xpToNext * 1.2);
+}
+}
+
+function buyAutoClicker() {
+if (bits >= 50) {
+bits -= 50;
+autoClickers++;
+updateUI();
+}
+}
+
+setInterval(() => {
+if (autoClickers > 0) {
+for (let i = 0; i < autoClickers; i++) {
+writeCode();
+}
+}
+}, 1000);
+
+updateUI();
+</script>
+</body>
+</html>
